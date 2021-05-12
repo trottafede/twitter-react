@@ -4,11 +4,34 @@ import { useState, useEffect } from "react";
 
 function Home() {
   const [arrayDeTweet, setArrayDeTweet] = useState([]);
+  const [tweetContent, setTweetContent] = useState("");
+  const [homeReload, setHomeReload] = useState(0);
+
+  const handleSubmit = (e) => {
+    console.log(tweetContent);
+    e.preventDefault();
+    fetch("http://localhost:3002/create", {
+      method: "POST",
+      body: JSON.stringify({
+        text: tweetContent,
+        user: "60859cfae2f6edc6a746d43f",
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setTweetContent("");
+        setHomeReload(homeReload + 1);
+      });
+  };
+
   useEffect(() => {
     fetch("http://localhost:3002")
       .then((response) => response.json())
       .then((data) => setArrayDeTweet(data.arrayDeTweet));
-  }, []);
+  }, [homeReload]);
 
   return (
     <div>
@@ -116,11 +139,13 @@ function Home() {
                 <ol className="tweet-list">
                   <li className="tweet-card">
                     <div className="tweetForm">
-                      <form action="/create" method="POST">
+                      <form onSubmit={handleSubmit}>
                         <label for="text">Que estoy pensando?</label>
                         <input
                           type="text"
-                          name="text"
+                          name="tweetContent"
+                          value={tweetContent}
+                          onChange={(e) => setTweetContent(e.target.value)}
                           id="text"
                           className="form-control mb-3"
                         />
