@@ -1,7 +1,15 @@
 import React from "react";
 import "./Home.css";
+import { useState, useEffect } from "react";
 
 function Home() {
+  const [arrayDeTweet, setArrayDeTweet] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:3002")
+      .then((response) => response.json())
+      .then((data) => setArrayDeTweet(data.arrayDeTweet));
+  }, []);
+
   return (
     <div>
       <div id="main_page">
@@ -10,7 +18,7 @@ function Home() {
             <div className="container">
               <div className="avatar-container">
                 <div className="avatar">
-                  <img src="logo192.png" alt="" />
+                  <img src="/img/tubouy.jpg" alt="" />
                 </div>
               </div>
             </div>
@@ -123,68 +131,83 @@ function Home() {
                     </div>
                   </li>
 
-                  <li className="tweet-card">
-                    <div className="tweet-content">
-                      <div className="tweet-header">
-                        <span className="fullname"></span>
-                        <span className="username">@</span>
-                        <span className="tweet-time"></span>
-                      </div>
-                      <a>
-                        <img
-                          className="tweet-card-avatar"
-                          src="logo192.png"
-                          alt="profile pic"
-                        />
-                      </a>
-                      <div className="tweet-text">
-                        <p className="" lang="es" data-aria-label-part="0">
-                          XXXXX
-                        </p>
-                      </div>
-                      <div className="tweet-footer">
-                        <a className="tweet-footer-btn">
-                          <i
-                            className="octicon octicon-comment"
-                            aria-hidden="true"
-                          ></i>
-                          <span> 18</span>
-                        </a>
-                        <a className="tweet-footer-btn">
-                          <i
-                            className="octicon octicon-sync"
-                            aria-hidden="true"
-                          ></i>
-                          <span> 64</span>
-                        </a>
+                  {arrayDeTweet &&
+                    arrayDeTweet.map((item) => {
+                      return (
+                        <li class="tweet-card">
+                          <div class="tweet-content">
+                            <div class="tweet-header">
+                              <span class="fullname">
+                                <strong>
+                                  {item.firstName} {item.lastName}
+                                </strong>
+                              </span>
+                              <span class="username">@{item.userName}</span>
+                              <span class="tweet-time">
+                                {new Date(item.tweetDate).toDateString()}
+                              </span>
+                            </div>
+                            <a>
+                              <img
+                                class="tweet-card-avatar"
+                                src={item.image}
+                                alt="profile pic"
+                              />
+                            </a>
+                            <div class="tweet-text">
+                              <p class="" lang="es" data-aria-label-part="0">
+                                {item.tweet}
+                              </p>
+                            </div>
+                            <div class="tweet-footer">
+                              <a class="tweet-footer-btn">
+                                <i
+                                  class="octicon octicon-comment"
+                                  aria-hidden="true"
+                                ></i>
+                                <span> 18</span>
+                              </a>
+                              <a class="tweet-footer-btn">
+                                <i
+                                  class="octicon octicon-sync"
+                                  aria-hidden="true"
+                                ></i>
+                                <span> 64</span>
+                              </a>
 
-                        <form
-                          className="form-like"
-                          action="/like"
-                          method="POST"
-                        >
-                          <input type="hidden" name="tweetId" value="22" />
-                          <button
-                            className="tweet-footer-btn button-like"
-                            type="submit"
-                          >
-                            <i
-                              className="octicon octicon-heart"
-                              aria-hidden="true"
-                            ></i>
-                            <span> </span>
-                          </button>
-                        </form>
-                        <a className="tweet-footer-btn">
-                          <i
-                            className="octicon octicon-mail"
-                            aria-hidden="true"
-                          ></i>
-                          <span> 155</span>
-                        </a>
-                      </div>
-                    </div>
-                  </li>
+                              <form
+                                class="form-like"
+                                action="/like"
+                                method="POST"
+                              >
+                                <input
+                                  type="hidden"
+                                  name="tweetId"
+                                  value={item._id}
+                                />
+                                <button
+                                  class="tweet-footer-btn button-like"
+                                  type="submit"
+                                >
+                                  <i
+                                    class="octicon octicon-heart"
+                                    aria-hidden="true"
+                                  ></i>
+                                  <span> {item.likes}</span>
+                                </button>
+                              </form>
+                              <a class="tweet-footer-btn">
+                                <i
+                                  class="octicon octicon-mail"
+                                  aria-hidden="true"
+                                ></i>
+                                <span> 155</span>
+                              </a>
+                            </div>
+                          </div>
+                        </li>
+                      );
+                    })}
                 </ol>
               </div>
 

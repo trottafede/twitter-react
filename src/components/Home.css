@@ -100,7 +100,7 @@ a:hover {
 
 .avatar img {
   background: #fff;
-  /* background-image: url(/uploads/fotopersonal.jpg); */
+  /* background-image: url("/public/img/tubouy.jpg"); */
   border: 5px solid #fff;
   background-size: cover;
   border-radius: 50%;
