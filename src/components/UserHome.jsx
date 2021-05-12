@@ -14,6 +14,62 @@ function Home() {
     <div>
       <div id="main_page">
         <div className="main-container">
+          <div className="row profile-background">
+            <div className="container">
+              <div className="avatar-container">
+                <div className="avatar">
+                  <img src="/img/tubouy.jpg" alt="" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <nav className="navbar profile-stats">
+            <div className="container">
+              <div className="row">
+                <div className="col"></div>
+                <div className="col-6">
+                  <ul>
+                    <li className="profile-stats-item-active">
+                      <a>
+                        <span className="profile-stats-item profile-stats-item-label">
+                          Tweets
+                        </span>
+
+                        <span className="profile-stats-item profile-stats-item-number"></span>
+                      </a>
+                    </li>
+                    <li>
+                      <a>
+                        <span className="profile-stats-item profile-stats-item-label">
+                          Following
+                        </span>
+                        <span className="profile-stats-item profile-stats-item-number"></span>
+                      </a>
+                    </li>
+                    <li>
+                      <a>
+                        <span className="profile-stats-item profile-stats-item-label">
+                          Followers
+                        </span>
+                        <span className="profile-stats-item profile-stats-item-number"></span>
+                      </a>
+                    </li>
+                    <li>
+                      <a>
+                        <span className="profile-stats-item profile-stats-item-label">
+                          Likes
+                        </span>
+                        <span className="profile-stats-item profile-stats-item-number"></span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div className="col"></div>
+              </div>
+            </div>
+          </nav>
+
           <div className="container main-content">
             <div className="row">
               <div className="col-lg-4 profile-col">
@@ -58,23 +114,6 @@ function Home() {
 
               <div className="col-lg-5">
                 <ol className="tweet-list">
-                  <li className="tweet-card">
-                    <div className="tweetForm">
-                      <form action="/create" method="POST">
-                        <label for="text">Que estoy pensando?</label>
-                        <input
-                          type="text"
-                          name="text"
-                          id="text"
-                          className="form-control mb-3"
-                        />
-                        <button type="submit" className="btn btn-search-bar">
-                          Send tweet
-                        </button>
-                      </form>
-                    </div>
-                  </li>
-
                   {arrayDeTweet &&
                     arrayDeTweet.map((item) => {
                       return (

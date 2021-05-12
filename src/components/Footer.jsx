@@ -1,4 +1,4 @@
-import "./Home.css";
+import "./UserHome.css";
 
 import React from "react";
 

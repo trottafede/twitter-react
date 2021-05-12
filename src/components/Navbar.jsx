@@ -1,4 +1,5 @@
-import "./Home.css";
+import "./UserHome.css";
+import { Link } from "react-router-dom";
 
 import React from "react";
 
@@ -21,10 +22,10 @@ function Navbar() {
         <div class="collapse navbar-collapse container">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="/">
+              <Link class="nav-link" to="/">
                 <i class="octicon octicon-home" aria-hidden="true"></i> Home
                 <span class="sr-only">(current)</span>
-              </a>
+              </Link>
             </li>
 
             <li class="nav-item">
@@ -39,7 +40,7 @@ function Navbar() {
             </li>
           </ul>
 
-          <form class="navbar-form" role="search">
+          {/* <form class="navbar-form" role="search">
             <div class="input-group">
               <input
                 type="text"
@@ -54,15 +55,15 @@ function Navbar() {
                 </button>
               </div>
             </div>
-          </form>
+          </form> */}
 
           <a class="mr-3 ml-3" href="/user">
             <strong></strong>
           </a>
 
-          <a class="mr-3 ml-3" href="/logout">
-            Logout
-          </a>
+          <Link className="mr-3" to="/user">
+            Nombre de Usuario
+          </Link>
 
           <button class="btn btn-search-bar">Tweet</button>
         </div>
