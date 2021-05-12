@@ -22,7 +22,7 @@ function Navbar() {
         <div class="collapse navbar-collapse container">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <Link class="nav-link" to="/">
+              <Link class="nav-link" to="/home">
                 <i class="octicon octicon-home" aria-hidden="true"></i> Home
                 <span class="sr-only">(current)</span>
               </Link>
