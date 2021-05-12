@@ -1,6 +1,5 @@
 import React from "react";
 import Home from "./Home";
-import Tweet from "./Tweet";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 
@@ -11,7 +10,6 @@ function App() {
     <div className="App">
       <Navbar />
       <Home />
-      <Tweet />
       <Footer />
     </div>
   );
