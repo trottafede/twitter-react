@@ -355,6 +355,9 @@ a:hover {
   font-size: 12px;
   font-weight: bold;
 }
+.octicon.redHeart {
+  color: red;
+}
 
 @media (max-width: 576px) {
   .avatar-container {

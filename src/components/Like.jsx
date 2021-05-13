@@ -1,4 +1,5 @@
 import React from "react";
+import "./Like.css";
 
 function Like({ item, updateHomeReload }) {
   const handleSubmit = (e) => {
@@ -19,12 +20,27 @@ function Like({ item, updateHomeReload }) {
         updateHomeReload();
       });
   };
+  function setHeartRed(itemId) {
+    if (item.likes.length === 1) {
+      document.getElementById(itemId).classList.remove("redHeart");
+    } else if (item.likes.length === 0) {
+      document.getElementById(itemId).classList.add("redHeart");
+    }
+  }
   return (
-    <form onSubmit={handleSubmit} class="form-like">
-      <input type="hidden" name="tweetId" value={item._id} />
-      <button class="tweet-footer-btn button-like" type="submit">
-        <i class="octicon octicon-heart" aria-hidden="true"></i>
-        <span> {item.likes}</span>
+    <form onSubmit={handleSubmit} className="form-like">
+      <input type="hidden" name="tweetId" value={item.author.id} />
+      <button
+        className="tweet-footer-btn button-like"
+        type="submit"
+        onClick={() => setHeartRed(item._id)}
+      >
+        <i
+          className="octicon octicon-heart"
+          aria-hidden="true"
+          id={item._id}
+        ></i>
+        <span> {item.likes.length}</span>
       </button>
     </form>
   );

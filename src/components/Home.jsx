@@ -18,7 +18,7 @@ function Home() {
       method: "POST",
       body: JSON.stringify({
         text: tweetContent,
-        user: "60857e9ed01000a561ea8a7a",
+        user: "60859cfae2f6edc6a746d43f",
       }),
       headers: {
         "Content-Type": "application/json",
@@ -34,7 +34,7 @@ function Home() {
   useEffect(() => {
     fetch("http://localhost:3002")
       .then((response) => response.json())
-      .then((data) => setArrayDeTweet(data.arrayDeTweet));
+      .then((data) => setArrayDeTweet(data.arrayDeTweets));
   }, [homeReload]);
 
   return (
@@ -163,42 +163,48 @@ function Home() {
                   {arrayDeTweet &&
                     arrayDeTweet.map((item) => {
                       return (
-                        <li class="tweet-card">
-                          <div class="tweet-content">
-                            <div class="tweet-header">
-                              <span class="fullname">
+                        <li className="tweet-card">
+                          <div className="tweet-content">
+                            <div className="tweet-header">
+                              <span className="fullname">
                                 <strong>
-                                  {item.firstName} {item.lastName}
+                                  {item.author.firstName} {item.author.lastName}
                                 </strong>
                               </span>
-                              <span class="username">@{item.userName}</span>
-                              <span class="tweet-time">
-                                {new Date(item.tweetDate).toDateString()}
+                              <span className="username">
+                                @{item.author.userName}
+                              </span>
+                              <span className="tweet-time">
+                                {new Date(item.createdAt).toDateString()}
                               </span>
                             </div>
                             <a>
                               <img
-                                class="tweet-card-avatar"
-                                src={item.image}
+                                className="tweet-card-avatar"
+                                src={item.author.image}
                                 alt="profile pic"
                               />
                             </a>
-                            <div class="tweet-text">
-                              <p class="" lang="es" data-aria-label-part="0">
-                                {item.tweet}
+                            <div className="tweet-text">
+                              <p
+                                className=""
+                                lang="es"
+                                data-aria-label-part="0"
+                              >
+                                {item.text}
                               </p>
                             </div>
-                            <div class="tweet-footer">
-                              <a class="tweet-footer-btn">
+                            <div className="tweet-footer">
+                              <a className="tweet-footer-btn">
                                 <i
-                                  class="octicon octicon-comment"
+                                  className="octicon octicon-comment"
                                   aria-hidden="true"
                                 ></i>
                                 <span> 18</span>
                               </a>
-                              <a class="tweet-footer-btn">
+                              <a className="tweet-footer-btn">
                                 <i
-                                  class="octicon octicon-sync"
+                                  className="octicon octicon-sync"
                                   aria-hidden="true"
                                 ></i>
                                 <span> 64</span>
@@ -208,9 +214,9 @@ function Home() {
                                 item={item}
                                 updateHomeReload={updateHomeReload}
                               />
-                              <a class="tweet-footer-btn">
+                              <a className="tweet-footer-btn">
                                 <i
-                                  class="octicon octicon-mail"
+                                  className="octicon octicon-mail"
                                   aria-hidden="true"
                                 ></i>
                                 <span> 155</span>
