@@ -1,6 +1,7 @@
 import React from "react";
 import "./Home.css";
 import { useState, useEffect } from "react";
+import Like from "./Like";
 
 function Home() {
   const [arrayDeTweet, setArrayDeTweet] = useState([]);
@@ -200,27 +201,7 @@ function Home() {
                                 <span> 64</span>
                               </a>
 
-                              <form
-                                class="form-like"
-                                action="/like"
-                                method="POST"
-                              >
-                                <input
-                                  type="hidden"
-                                  name="tweetId"
-                                  value={item._id}
-                                />
-                                <button
-                                  class="tweet-footer-btn button-like"
-                                  type="submit"
-                                >
-                                  <i
-                                    class="octicon octicon-heart"
-                                    aria-hidden="true"
-                                  ></i>
-                                  <span> {item.likes}</span>
-                                </button>
-                              </form>
+                              <Like item={item} />
                               <a class="tweet-footer-btn">
                                 <i
                                   class="octicon octicon-mail"
