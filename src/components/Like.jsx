@@ -1,6 +1,6 @@
 import React from "react";
 
-function Like({ item }) {
+function Like({ item, updateHomeReload }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     fetch("http://localhost:3002/like", {
@@ -16,6 +16,7 @@ function Like({ item }) {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
+        updateHomeReload();
       });
   };
   return (

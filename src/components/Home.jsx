@@ -7,7 +7,9 @@ function Home() {
   const [arrayDeTweet, setArrayDeTweet] = useState([]);
   const [tweetContent, setTweetContent] = useState("");
   const [homeReload, setHomeReload] = useState(0);
-
+  const updateHomeReload = () => {
+    setHomeReload(homeReload + 1);
+  };
   const handleSubmit = (e) => {
     console.log(tweetContent);
     e.preventDefault();
@@ -24,7 +26,7 @@ function Home() {
       .then((response) => response.json())
       .then((data) => {
         setTweetContent("");
-        setHomeReload(homeReload + 1);
+        updateHomeReload();
       });
   };
 
@@ -201,7 +203,10 @@ function Home() {
                                 <span> 64</span>
                               </a>
 
-                              <Like item={item} />
+                              <Like
+                                item={item}
+                                updateHomeReload={updateHomeReload}
+                              />
                               <a class="tweet-footer-btn">
                                 <i
                                   class="octicon octicon-mail"
