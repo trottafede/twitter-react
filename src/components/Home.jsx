@@ -3,16 +3,13 @@ import "./Home.css";
 import "./Like.css";
 
 import { useState, useEffect } from "react";
-import Like from "./Like";
 import { useSelector, useDispatch } from "react-redux";
-import actions from "../redux/actions/tweetActions";
 import TweetCard from "./TweetCard";
 function Home() {
   const user = useSelector((state) => state.userReducer);
   console.log(user);
 
   const dispatch = useDispatch();
-  const axios = require("axios");
   const tweets = useSelector((state) => state.tweetReducer);
 
   const [arrayDeTweet, setArrayDeTweet] = useState([]);
@@ -25,7 +22,7 @@ function Home() {
   const handleSubmit = (e) => {
     console.log(user.userId);
     e.preventDefault();
-    fetch("http://localhost:3001/create", {
+    fetch("https://backend-twitter-react.vercel.app/create", {
       method: "POST",
       body: JSON.stringify({
         text: tweetContent,
@@ -44,28 +41,8 @@ function Home() {
       });
   };
 
-  // useEffect(() => {
-  //   const getTweets = async () => {
-  //     const response = await axios.get(
-  //       "https://backend-twitter-react.vercel.app/tweets",
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${user.token}`,
-  //           "Content-Type": "application/json",
-  //         },
-  //       }
-  //     );
-  //     console.log(response.data.arrayDeTweets);
-  //     console.log(tweets);
-  //     if (response.data) {
-  //       dispatch(actions.setTweets(response.data.arrayDeTweets));
-  //     }
-  //   };
-  //   getTweets();
-  // }, []);
-
   useEffect(() => {
-    fetch("http://localhost:3001/tweets", {
+    fetch("https://backend-twitter-react.vercel.app/tweets", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${user.token}`,
@@ -73,7 +50,10 @@ function Home() {
       },
     })
       .then((response) => response.json())
-      .then((data) => setArrayDeTweet(data.arrayDeTweets));
+      .then((data) => {
+        setArrayDeTweet(data.arrayDeTweets);
+        console.log(arrayDeTweet);
+      });
   }, [homeReload]);
 
   return (
