@@ -1,25 +1,39 @@
 import React from "react";
 import "./Home.css";
+import "./Like.css";
+
 import { useState, useEffect } from "react";
 import Like from "./Like";
-
+import { useSelector, useDispatch } from "react-redux";
+import actions from "../redux/actions/tweetActions";
+import TweetCard from "./TweetCard";
 function Home() {
+  const user = useSelector((state) => state.userReducer);
+  console.log(user);
+
+  const dispatch = useDispatch();
+  const axios = require("axios");
+  const tweets = useSelector((state) => state.tweetReducer);
+
   const [arrayDeTweet, setArrayDeTweet] = useState([]);
   const [tweetContent, setTweetContent] = useState("");
   const [homeReload, setHomeReload] = useState(0);
   const updateHomeReload = () => {
     setHomeReload(homeReload + 1);
   };
+
   const handleSubmit = (e) => {
-    console.log(tweetContent);
+    console.log(user.userId);
     e.preventDefault();
-    fetch("http://localhost:3002/create", {
+    fetch("http://localhost:3001/create", {
       method: "POST",
       body: JSON.stringify({
         text: tweetContent,
-        user: "60859cfae2f6edc6a746d43f",
+        user: user.userId,
       }),
       headers: {
+        Authorization: `Bearer ${user.token}`,
+
         "Content-Type": "application/json",
       },
     })
@@ -30,10 +44,36 @@ function Home() {
       });
   };
 
+  // useEffect(() => {
+  //   const getTweets = async () => {
+  //     const response = await axios.get(
+  //       "https://backend-twitter-react.vercel.app/tweets",
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${user.token}`,
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
+  //     console.log(response.data.arrayDeTweets);
+  //     console.log(tweets);
+  //     if (response.data) {
+  //       dispatch(actions.setTweets(response.data.arrayDeTweets));
+  //     }
+  //   };
+  //   getTweets();
+  // }, []);
+
   useEffect(() => {
-    fetch("http://localhost:3002")
+    fetch("http://localhost:3001/tweets", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+        "Content-Type": "application/json",
+      },
+    })
       .then((response) => response.json())
-      .then((data) => setArrayDeTweet(data.arrayDeTweet));
+      .then((data) => setArrayDeTweet(data.arrayDeTweets));
   }, [homeReload]);
 
   return (
@@ -162,61 +202,10 @@ function Home() {
                   {arrayDeTweet &&
                     arrayDeTweet.map((item) => {
                       return (
-                        <li class="tweet-card">
-                          <div class="tweet-content">
-                            <div class="tweet-header">
-                              <span class="fullname">
-                                <strong>
-                                  {item.firstName} {item.lastName}
-                                </strong>
-                              </span>
-                              <span class="username">@{item.userName}</span>
-                              <span class="tweet-time">
-                                {new Date(item.tweetDate).toDateString()}
-                              </span>
-                            </div>
-                            <a>
-                              <img
-                                class="tweet-card-avatar"
-                                src={item.image}
-                                alt="profile pic"
-                              />
-                            </a>
-                            <div class="tweet-text">
-                              <p class="" lang="es" data-aria-label-part="0">
-                                {item.tweet}
-                              </p>
-                            </div>
-                            <div class="tweet-footer">
-                              <a class="tweet-footer-btn">
-                                <i
-                                  class="octicon octicon-comment"
-                                  aria-hidden="true"
-                                ></i>
-                                <span> 18</span>
-                              </a>
-                              <a class="tweet-footer-btn">
-                                <i
-                                  class="octicon octicon-sync"
-                                  aria-hidden="true"
-                                ></i>
-                                <span> 64</span>
-                              </a>
-
-                              <Like
-                                item={item}
-                                updateHomeReload={updateHomeReload}
-                              />
-                              <a class="tweet-footer-btn">
-                                <i
-                                  class="octicon octicon-mail"
-                                  aria-hidden="true"
-                                ></i>
-                                <span> 155</span>
-                              </a>
-                            </div>
-                          </div>
-                        </li>
+                        <TweetCard
+                          item={item}
+                          updateHomeReload={updateHomeReload}
+                        />
                       );
                     })}
                 </ol>
