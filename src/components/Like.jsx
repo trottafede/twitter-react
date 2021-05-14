@@ -8,7 +8,7 @@ function Like({ item, updateHomeReload }) {
       method: "POST",
       body: JSON.stringify({
         tweetId: item._id,
-        user: "60859cfae2f6edc6a746d43f",
+        user: "609e986092c8b60008973555",
       }),
       headers: {
         "Content-Type": "application/json",
@@ -20,15 +20,9 @@ function Like({ item, updateHomeReload }) {
         updateHomeReload();
       });
   };
-  // function setHeartRed(itemId) {
-  //   if (item.likes.length === 1) {
-  //     document.getElementById(itemId).classList.remove("redHeart");
-  //   } else if (item.likes.length === 0) {
-  //     document.getElementById(itemId).classList.add("redHeart");
-  //   }
-  // }
+
   // todo: change hardcode id for userId when login is made
-  const active = item.likes.includes("60859cfae2f6edc6a746d43f");
+  const active = item.likes.includes("609e986092c8b60008973555");
 
   return (
     <form onSubmit={handleSubmit} className="form-like">
