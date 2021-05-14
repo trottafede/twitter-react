@@ -1,16 +1,12 @@
 import React from "react";
-import SignIn from "../SignIn/SignUpContainer";
+import SignIn from "../SignIn/SignIn";
 
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-
-function SignUp() {
+function SignInPage() {
   return (
     <>
-      <MuiThemeProvider>
-        <SignIn />
-      </MuiThemeProvider>
+      <SignIn />
     </>
   );
 }
 
-export default SignUp;
+export default SignInPage;
