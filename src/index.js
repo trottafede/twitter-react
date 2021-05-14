@@ -3,21 +3,20 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./components/App";
 
-import { createStore } from "redux";
-import { Provider } from "react-redux";
-
-import store from "./redux/tokenStore";
-
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router } from "react-router-dom";
 
-const tokenStore = createStore(store);
+import { Provider } from "react-redux";
+import { store, persistor } from "./redux/store/store";
+import { PersistGate } from "redux-persist/integration/react";
 
 ReactDOM.render(
   <Router>
     <React.StrictMode>
-      <Provider store={tokenStore}>
-        <App />
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <App />
+        </PersistGate>
       </Provider>
     </React.StrictMode>
   </Router>,

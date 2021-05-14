@@ -1,34 +1,38 @@
 import React from "react";
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
+import actions from "../../redux/actions/userActions";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 const axios = require("axios");
 
 function ChoreForm(props) {
   const [name, setName] = useState();
   const [password, setPassword] = useState();
+  const history = useHistory();
 
-  const taskList = useSelector((state) => state);
   const dispatch = useDispatch();
-  console.log(taskList.accessToken);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(name);
-    console.log(password);
 
     var params = { username: name, password: password };
     const getToken = async () => {
-      const response = await axios.post(`http://localhost:3001/token`, {
-        username: params.username,
-        password: params.password,
-      });
-      console.log(response.data);
+      const response = await axios.post(
+        `https://backend-twitter-react.vercel.app/tokens`,
+        {
+          username: params.username,
+          password: params.password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (response.data) {
-        dispatch({
-          type: "SET_USER",
-          payload: response.data,
-        });
+        dispatch(actions.setUser(response.data));
+        history.push("/home");
       }
     };
     getToken();
