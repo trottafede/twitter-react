@@ -1,0 +1,14 @@
+.navbar {
+  background-color: #fff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+.navbar-nav > li a {
+  color: #66757f;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.item {
+  margin: 20px;
+  font-weight: lighter;
+}
