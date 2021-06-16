@@ -3,9 +3,9 @@ import React from "react";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import actions from "../../redux/actions/userActions";
-
+import axios from "axios";
 import { useDispatch } from "react-redux";
-const axios = require("axios");
+
 function SignIn() {
   const [name, setName] = useState();
   const [password, setPassword] = useState();
