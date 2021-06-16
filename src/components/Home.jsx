@@ -1,27 +1,38 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import "./Home.css";
+import "./Like.css";
 import { useState, useEffect } from "react";
 import TweetCard from "./TweetCard";
 import News from "./News";
+import { useSelector, useDispatch } from "react-redux";
 
 function Home() {
+  const user = useSelector((state) => state.userReducer);
+  console.log(user);
+
+  const dispatch = useDispatch();
+  const tweets = useSelector((state) => state.tweetReducer);
+
   const [arrayDeTweet, setArrayDeTweet] = useState([]);
   const [tweetContent, setTweetContent] = useState("");
   const [homeReload, setHomeReload] = useState(0);
   const updateHomeReload = () => {
     setHomeReload(homeReload + 1);
   };
+
   const handleSubmit = (e) => {
-    console.log(tweetContent);
+    console.log(user.userId);
     e.preventDefault();
-    fetch("http://localhost:3002/create", {
+    fetch("https://backend-twitter-react.vercel.app/create", {
       method: "POST",
       body: JSON.stringify({
         text: tweetContent,
-        user: "609e986092c8b60008973555",
+        user: user.userId,
       }),
       headers: {
+        Authorization: `Bearer ${user.token}`,
+
         "Content-Type": "application/json",
       },
     })
@@ -33,7 +44,13 @@ function Home() {
   };
 
   useEffect(() => {
-    fetch("http://localhost:3002")
+    fetch("https://backend-twitter-react.vercel.app/tweets", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+        "Content-Type": "application/json",
+      },
+    })
       .then((response) => response.json())
       .then((data) => setArrayDeTweet(data.arrayDeTweets));
   }, [homeReload]);

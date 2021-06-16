@@ -2,7 +2,7 @@ import React from "react";
 import Like from "./Like";
 
 function TweetCard({ item, updateHomeReload }) {
-  console.log(item.author.firstName + "***************");
+  // console.log(item.author.firstName);
   return (
     <li className="tweet-card">
       <div className="tweet-content">

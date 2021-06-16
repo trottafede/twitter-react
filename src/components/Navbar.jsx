@@ -5,9 +5,9 @@ import React from "react";
 function Navbar() {
   return (
     <div>
-      <nav class="navbar navbar-toggleable-md fixed-top">
+      <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
         <button
-          class="navbar-toggler navbar-toggler-right"
+          class="navbar-toggler"
           type="button"
           data-toggle="collapse"
           data-target="#navbarsExampleDefault"
@@ -18,7 +18,7 @@ function Navbar() {
           <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse container">
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
               <a class="nav-link" href="/">
@@ -26,7 +26,6 @@ function Navbar() {
                 <span class="sr-only">(current)</span>
               </a>
             </li>
-
             <li class="nav-item">
               <a class="nav-link" href="#">
                 <i class="octicon octicon-bell"></i> Notifications
@@ -55,7 +54,6 @@ function Navbar() {
               </div>
             </div>
           </form>
-
           <a class="mr-3 ml-3" href="/user">
             <strong></strong>
           </a>
